@@ -13,6 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import {AuthGuard} from './auth-guard.service';
+import {AdminAuthGuard} from './admin-auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,8 +25,14 @@ const routes: Routes = [
   { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
   { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
 
-  { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard] },
-  { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard] },
+  { path: 'admin/products',
+    component: AdminProductsComponent,
+    canActivate: [AuthGuard, AdminAuthGuard]
+  },
+  { path: 'admin/orders',
+    component: AdminOrdersComponent,
+    canActivate: [AuthGuard, AdminAuthGuard]
+  },
 
 ];
 
