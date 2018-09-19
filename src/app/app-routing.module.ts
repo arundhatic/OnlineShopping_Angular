@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
 import { BsNavbarComponent } from './bs-navbar/bs-navbar.component';
+
 import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
@@ -14,6 +14,7 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import {AuthGuard} from './auth-guard.service';
 import {AdminAuthGuard} from './admin-auth-guard.service';
+import {ProductFormComponent} from './admin/product-form/product-form.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,10 @@ const routes: Routes = [
 
   { path: 'admin/products',
     component: AdminProductsComponent,
+    canActivate: [AuthGuard, AdminAuthGuard]
+  },
+  { path: 'admin/products/new',
+    component: ProductFormComponent,
     canActivate: [AuthGuard, AdminAuthGuard]
   },
   { path: 'admin/orders',
