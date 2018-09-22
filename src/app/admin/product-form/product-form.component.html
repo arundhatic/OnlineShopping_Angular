@@ -1,7 +1,7 @@
 
 <div class="container">
 <div class="row">
-<div class="col-lg-12 col-md-8">
+<div class="col-md-6">
  <form #f="ngForm" (ngSubmit)="save(f.value)">
    <div class="form-group">
     <label for="title">Title</label>
@@ -42,6 +42,15 @@
    </div>
   <button type = "submit" class="pri btn-primary">Save</button>
  </form>
+</div>
+<div class="col-md-6">
+  <div class="card" style="width: 20rem;">
+    <img class="card-img-top" [src]="imageUrl.value"/>
+    <div class="card-body">
+      <h5 class="card-title">{{ title.value }}</h5>
+      <p class="card-text">{{ price.value | currency: 'USD':true}}</p>
+    </div>
+  </div>
 </div>
 </div>
 </div>
