@@ -7,6 +7,7 @@
 <table class="table">
   <thead>
    <tr>
+     <th>Id</th>
      <th>Title</th>
      <th>Price</th>
      <th></th>
@@ -14,10 +15,11 @@
   </thead>
    <tbody>
     <tr *ngFor="let p of products$ | async">
+      <td>{{ p.id}}</td>
       <td>{{ p.title }}</td>
       <td>{{ p.price }}</td>
       <td>
-        <a [routerLink] = "['/admin/products/', p.name]">Edit</a>
+        <a [routerLink] = "['/admin/products/', p.id]">Edit</a>
       </td>
     </tr>
    </tbody>

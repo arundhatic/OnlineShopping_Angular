@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoryService} from '../../category.service';
 import {ProductService} from '../../product.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-product-form',
@@ -11,13 +12,41 @@ import {Router} from '@angular/router';
 export class ProductFormComponent implements OnInit {
 
   categories$;
+  flag: boolean;
+  product = {
+    /*
+    item: <string> null,
+    price: <number> null,
+    category: <string> null,
+    imageUrl: <string> null
+    */
+  }; /* for new product, assign to empty else get a null pointer exception */
+
+  productId: string;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private categoryService: CategoryService,
-    private productService: ProductService) {
+    private productService: ProductService)   {
     this.categories$ = categoryService.getCategories();
-    console.log('this.catagories = ' + this.categories$);
+    this.flag = true;
+    this.productId = this.route.snapshot.paramMap.get('id');
+
+    if (this.productId) {
+      this.productService.getAll().subscribe(p => {
+        for (let i = 0; i < p.length; i ++){
+          if (Number(this.productId) === p[i]['id']) {
+            this.product = p[i];
+            break;
+          }else if(this.productId === p[i]['id']) {
+            this.product = p[i];
+            break;
+          }
+        }
+      });
+    }
+
   }
 
   save(product) {
@@ -28,5 +57,4 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
